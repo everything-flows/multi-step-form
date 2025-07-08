@@ -1,40 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Multi Step Form
 
-## Getting Started
+## 스택
 
-First, run the development server:
+`typescript`
+`next (page router)`
+`react-query`
+`react-hook-form`
+`emotion`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 기능
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 1단계: 도서 기본 정보, 독서 상태, 독서할 시작 및 종료일
+  - [ ] 독서 상태는 `읽고 싶은 책` / `읽는 중` / `읽음` / `보류 중`
+    - [ ] `읽고 싶은 책` 은 독서 기간이 입력되면 안 된다.
+    - [ ] `읽는 중` 이면 독서 시작일만 입력돼야 한다. / 독서 종료일은 입력되면 안 된다.
+    - [ ] `읽음` 이면 독서 시작일/종료일이 입력돼야 한다.
+    - [ ] `보류 중` 이면 독서 시작일만 입력돼야 한다. / 독서 종료일은 입력되면 안 된다.
+  - [ ] 독서 기간
+    - [ ] 독서 시작일은 독서 종료일보다 이후면 안 된다.
+    - [ ] 독서 시작일은 도서 출판일 이후여야 한다.
+- 2단계: 도서 추천 여부, 별점
+  - 별점은 0~5, 0.5점 스케일
+    - [ ] 별점이 1점 또는 5점의 경우, 의견을 뒷받침 하기 위해 최소 100자 이상을 작성해야 한다. 2~4 점 일때는 독후감 필드는 입력안해도 된다.
+- 3단계: 독후감
+- 4단계: 인용구
+  - [ ] 인용구 페이지 번호는 도서 전체 페이지 수보다 작아야 한다.
+- 5단계: 공개 여부
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### 추가 구현
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+- [ ] 새로고침해도 폼 상태를 유지시키기
+- [ ] 옆에 폼 정보를 바탕으로 실시간으로 볼 수 있는 앱 화면 만들기
+  - 500ms 기다렸다가 앱 화면 상태 업데이트
+- [ ] 유효성 검사가 실패했을때 실패한 필드 중 순서상 가장 첫번째 필드로 focus 처리 + 실패한 모든 필드 인풋의 아웃라인을 붉은색으로 처리 + 인풋 하단에 에러 메세지 표시
+- [ ] 인용구를 여러개 등록하고 지울 수 있다 rhf useFieldArray 활용
+- [ ] 인용구가 두개 이상일때는 모든 인용구 필드 하단에 페이지 번호를 입력하는 인풋이 추가된다
+  - 유효성 검사: 페이지 번호는 문자가 오면 안되고(숫자만 가능), 책 페이지 수보다 작아야한다.
+  - 인용구가 두개 이상일때는 모든 페이지 번호 인풋은 required 이고, 한개 이하일때는 optional 이다.
+- [ ] window size event 수신하고 있다가 앱 화면을 컨디셔널 렌더링
+  - viewport width 가 1024px 미만일때는 앱 화면 없음
+- [ ] CommaSeparatedInput 같은 컴포넌트를 설계하고 이것을 rhf 로 매핑 및 export 해서 재활용
+  - 역할 DX) 유저는 숫자만 입력할 수 있고, 숫자를 연달아 입력했을때 자동으로 1000단위로 콤마를 삽입해주고, 그런데 컴포넌트를 사용하는 곳에서는 value를 number로 받을 수 있다.
+  - RHF로 래핑했기 때문에 여러 곳에서 register를 따로 하지 않고도 재활용 할 수 있다 -> RHFCommaSeparatedInput
+- [ ] 내부적으로 Suspense를 일으키는 목록 api 의 응답 값으로 AutoComplete.tsx의 Option 목록을 구성하는 컴포넌트 만들기 + rhf 화
+  - api 가 resolve 되지 않았을때는 로딩바를 보여주고, 에러가 났을때는 rejectedFallback 컴포넌트와 서버의 에러 메세지를 함께 표시, 정상 케이스에서 resolve 됐을때 AutoComplete 노출
