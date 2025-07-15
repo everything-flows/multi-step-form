@@ -12,16 +12,14 @@ export default function Step1Page() {
   });
 
   return (
-    <div>
-      <form onSubmit={onNext}>
-        {fieldList.map((field) => (
-          <div key={field.name}>
-            <p>{field.label}</p>
-            <input {...register(field.name)} />
-          </div>
-        ))}
-        <button type="submit">다음</button>
-      </form>
-    </div>
+    <form onSubmit={onNext}>
+      {fieldList.map((field) => (
+        <div key={field.name}>
+          <p>{field.label}</p>
+          <input {...register(field.name)} />
+        </div>
+      ))}
+      <button type="submit">다음</button>
+    </form>
   );
 }

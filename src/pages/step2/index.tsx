@@ -11,16 +11,14 @@ export default function Step2Page() {
   });
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        {fieldList.map((field) => (
-          <div key={field.name}>
-            <p>{field.label}</p>
-            <input {...register(field.name)} />
-          </div>
-        ))}
-        <button type="submit">다음</button>
-      </form>
-    </div>
+    <form onSubmit={onSubmit}>
+      {fieldList.map((field) => (
+        <div key={field.name}>
+          <p>{field.label}</p>
+          <input {...register(field.name)} />
+        </div>
+      ))}
+      <button type="submit">제출</button>
+    </form>
   );
 }
