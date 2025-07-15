@@ -27,15 +27,9 @@ export const step2: Step = {
       type: "text",
       required: true,
     },
-  ],
-};
-
-export const step3: Step = {
-  title: "마지막 스텝",
-  fieldList: [
     {
       name: "test3",
-      label: "다른 입력",
+      label: "마지막 입력",
       type: "text",
       required: true,
     },
