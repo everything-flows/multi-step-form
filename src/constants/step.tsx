@@ -10,9 +10,34 @@ export const step1: Step = {
       required: true,
     },
     {
-      name: "test1",
-      label: "이런 입력",
-      type: "text",
+      name: "totalPage",
+      label: "페이지 수",
+      type: "text", // FIXME: number로 변경
+      required: true,
+    },
+    {
+      name: "publicationDate",
+      label: "도서 출판일",
+      type: "date",
+      required: true,
+    },
+    {
+      name: "readingStatus",
+      label: "독서 상태",
+      type: "radio",
+      options: ["읽고 싶은 책", "읽는 중", "읽음", "보류 중"],
+      required: true,
+    },
+    {
+      name: "readingStartDate",
+      label: "독서 시작일",
+      type: "date",
+      required: true,
+    },
+    {
+      name: "readingStartDate",
+      label: "독서 종료일",
+      type: "date",
       required: true,
     },
   ],
