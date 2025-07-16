@@ -1,4 +1,5 @@
 import { Step } from "@/types";
+import type { FieldValues } from "react-hook-form";
 
 export const step1: Step = {
   title: "도서 정보",
@@ -32,13 +33,29 @@ export const step1: Step = {
       name: "readingStartDate",
       label: "독서 시작일",
       type: "date",
-      required: true,
+      hidden(props: FieldValues) {
+        const { readingStatus } = props;
+        if (
+          readingStatus === "읽는 중" ||
+          readingStatus === "읽음" ||
+          readingStatus === "보류 중"
+        ) {
+          return false;
+        }
+        return true;
+      },
     },
     {
-      name: "readingStartDate",
+      name: "readingEndDate",
       label: "독서 종료일",
       type: "date",
-      required: true,
+      hidden(props: FieldValues) {
+        const { readingStatus } = props;
+        if (readingStatus === "읽음") {
+          return false;
+        }
+        return true;
+      },
     },
   ],
 };

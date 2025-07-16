@@ -2,6 +2,7 @@ import { Field } from "@/types";
 import TextInput from "./TextInput";
 import DateInput from "./DateInput";
 import RadioInput from "./RadioInput";
+import { useFormContext } from "react-hook-form";
 
 const componentMap: Record<
   Field["type"],
@@ -13,11 +14,19 @@ const componentMap: Record<
 };
 
 export default function FieldRenderer({ field }: { field: Field }) {
-  const Component = componentMap[field.type];
+  const { watch } = useFormContext();
+  const formValues = watch();
+
+  const { type, hidden } = field;
+  const Component = componentMap[type];
 
   if (!Component) {
-    throw new Error("[지원되지 않는 입력 타입] " + field.type);
+    throw new Error("[지원되지 않는 입력 타입] " + type);
   }
 
+  const isHidden = typeof hidden === "function" && hidden(formValues);
+  if (isHidden) {
+    return null;
+  }
   return <Component field={field} />;
 }
