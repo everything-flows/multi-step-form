@@ -1,5 +1,6 @@
-import { useFormContext } from "react-hook-form";
 import { useRouter } from "next/router";
+import { useFormContext } from "react-hook-form";
+
 import { step1 } from "@/constants/step";
 
 export default function Step1Page() {
