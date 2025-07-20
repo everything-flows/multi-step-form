@@ -20,7 +20,7 @@ export default function FieldRenderer({ field }: { field: Field }) {
   const { type, hidden } = field;
   const Component = componentMap[type];
 
-  if (!Component) {
+  if (Component == null) {
     throw new Error("[지원되지 않는 입력 타입] " + type);
   }
 
@@ -28,5 +28,6 @@ export default function FieldRenderer({ field }: { field: Field }) {
   if (isHidden) {
     return null;
   }
+
   return <Component field={field} />;
 }
