@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useFormContext } from "react-hook-form";
 
 import { step1 } from "@/constants/step";
-import FieldRenderer from "@/components/FieldRenderer";
+import RHFFieldRenderer from "@/components/RHFFieldRenderer";
 
 export default function Step1Page() {
   const { handleSubmit } = useFormContext();
@@ -16,7 +16,7 @@ export default function Step1Page() {
   return (
     <form onSubmit={onNext}>
       {fieldList.map((field) => (
-        <FieldRenderer key={field.name} field={field} />
+        <RHFFieldRenderer key={field.name} field={field} />
       ))}
       <button type="submit">다음</button>
     </form>

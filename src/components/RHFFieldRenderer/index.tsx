@@ -1,16 +1,16 @@
 import { Field } from "@/types";
-import TextInput from "./TextInput";
-import DateInput from "./DateInput";
-import RadioInput from "./RadioInput";
+import RHFTextInput from "./RHFTextInput";
+import RHFDateInput from "./RHFDateInput";
+import RHFRadioInput from "./RHFRadioInput";
 import { useFormContext } from "react-hook-form";
 
 const componentMap: Record<
   Field["type"],
   React.ComponentType<{ field: Field }>
 > = {
-  text: TextInput,
-  date: DateInput,
-  radio: RadioInput,
+  text: RHFTextInput,
+  date: RHFDateInput,
+  radio: RHFRadioInput,
 };
 
 export default function FieldRenderer({ field }: { field: Field }) {
