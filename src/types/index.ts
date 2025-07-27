@@ -1,15 +1,27 @@
-import type { FieldValues } from "react-hook-form";
+export const FIELD_NAME = {
+  bookTitle: "bookTitle",
+  totalPage: "totalPage",
+  publicationDate: "publicationDate",
+  readingStatus: "readingStatus",
+  readingStartDate: "readingStartDate",
+  readingEndDate: "readingEndDate",
+} as const;
 
-export interface Field {
-  name: string; // form 내에서 unique한 이름
-  label: string;
-  type: "text" | "date" | "radio";
-  options?: string[]; // type이 radio일 때만 사용
-  required?: boolean;
-  hidden?: (props: FieldValues) => boolean;
-}
+export const READING_STATUS = {
+  읽고_싶은_책: "읽고 싶은 책",
+  읽는_중: "읽는 중",
+  읽음: "읽음",
+  보류_중: "보류 중",
+};
 
-export interface Step {
-  title: string;
-  fieldList: Field[];
+export type ReadingStatusType =
+  (typeof READING_STATUS)[keyof typeof READING_STATUS];
+
+export interface Form {
+  bookTitle: string;
+  totalPage: number;
+  publicationDate: Date;
+  readingStatus: ReadingStatusType;
+  readingStartDate?: Date;
+  readingEndDate?: Date;
 }
