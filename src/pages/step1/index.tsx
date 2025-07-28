@@ -40,7 +40,7 @@ export default function Step1Page() {
     <form onSubmit={onNext} css={formStyle}>
       <div css={inputStyle}>
         <label>도서 제목</label>
-        <input {...register(FIELD_NAME.bookTitle)} />
+        <input {...register(FIELD_NAME.BOOK_TITLE)} />
         {errors.bookTitle && <p>{errors.bookTitle?.message}</p>}
       </div>
 
@@ -48,7 +48,7 @@ export default function Step1Page() {
         <label>페이지 수</label>
         <input
           type="number"
-          {...(register(FIELD_NAME.totalPage), { valueAsNumber: true })}
+          {...(register(FIELD_NAME.TOTAL_PAGE), { valueAsNumber: true })}
         />
       </div>
 
@@ -56,23 +56,21 @@ export default function Step1Page() {
         <label>도서 출판일</label>
         <input
           type="date"
-          {...register(FIELD_NAME.publicationDate, { valueAsDate: true })}
+          {...register(FIELD_NAME.PUBLICATION_DATE, { valueAsDate: true })}
         />
       </div>
 
       <div css={inputStyle}>
         <label>독서 상태</label>
         {Object.values(READING_STATUS).map((status) => (
-          <div key={status}>
-            <label>
-              <input
-                type="radio"
-                value={status}
-                {...register(FIELD_NAME.readingStatus)}
-              />
-              {status}
-            </label>
-          </div>
+          <label key={status}>
+            <input
+              type="radio"
+              value={status}
+              {...register(FIELD_NAME.READING_STATUS)}
+            />
+            {status}
+          </label>
         ))}
       </div>
 
@@ -81,7 +79,7 @@ export default function Step1Page() {
           <label>독서 시작일</label>
           <input
             type="date"
-            {...register(FIELD_NAME.readingStartDate, { valueAsDate: true })}
+            {...register(FIELD_NAME.READING_START_DATE, { valueAsDate: true })}
           />
         </div>
       )}
@@ -91,7 +89,7 @@ export default function Step1Page() {
           <label>독서 종료일</label>
           <input
             type="date"
-            {...register(FIELD_NAME.readingEndDate, { valueAsDate: true })}
+            {...register(FIELD_NAME.READING_END_DATE, { valueAsDate: true })}
           />
         </div>
       )}

@@ -1,10 +1,10 @@
 export const FIELD_NAME = {
-  bookTitle: "bookTitle",
-  totalPage: "totalPage",
-  publicationDate: "publicationDate",
-  readingStatus: "readingStatus",
-  readingStartDate: "readingStartDate",
-  readingEndDate: "readingEndDate",
+  BOOK_TITLE: "bookTitle",
+  TOTAL_PAGE: "totalPage",
+  PUBLICATION_DATE: "publicationDate",
+  READING_STATUS: "readingStatus",
+  READING_START_DATE: "readingStartDate",
+  READING_END_DATE: "readingEndDate",
 } as const;
 
 export const READING_STATUS = {
