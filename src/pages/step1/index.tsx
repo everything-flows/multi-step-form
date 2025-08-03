@@ -16,12 +16,7 @@ const inputStyle = css`
 
 export default function Step1Page() {
   // const router = useRouter();
-  const {
-    watch,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useFormContext<Form>();
+  const { watch, register, handleSubmit } = useFormContext<Form>();
 
   const formData = watch();
 
@@ -41,7 +36,6 @@ export default function Step1Page() {
       <div css={inputStyle}>
         <label>도서 제목</label>
         <input {...register(FIELD_NAME.BOOK_TITLE)} />
-        {errors.bookTitle && <p>{errors.bookTitle?.message}</p>}
       </div>
 
       <div css={inputStyle}>
