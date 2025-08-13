@@ -21,7 +21,7 @@ const isValidDateResponse = (date?: Date): date is Date => {
   return true;
 };
 
-export default function Step1Page() {
+export default function BookInfoFormPage() {
   // const router = useRouter();
   const {
     watch,
