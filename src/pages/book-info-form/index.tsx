@@ -21,14 +21,21 @@ const isValidDateResponse = (date?: Date): date is Date => {
   return true;
 };
 
-export default function BookInfoFormPage() {
-  // const router = useRouter();
+function ErrorMessage({ name }: { name: keyof Form }) {
   const {
-    watch,
-    register,
-    handleSubmit,
     formState: { errors },
   } = useFormContext<Form>();
+
+  if (errors[name] == null || errors[name].message == null) {
+    return null;
+  }
+
+  return <p>{errors[name].message}</p>;
+}
+
+export default function BookInfoFormPage() {
+  // const router = useRouter();
+  const { watch, register, handleSubmit } = useFormContext<Form>();
 
   const formData = watch();
 
@@ -52,9 +59,7 @@ export default function BookInfoFormPage() {
             required: "도서 제목을 입력해주세요.",
           })}
         />
-        {errors[FIELD_NAME.BOOK_TITLE] && (
-          <p>{errors[FIELD_NAME.BOOK_TITLE]?.message}</p>
-        )}
+        <ErrorMessage name={FIELD_NAME.BOOK_TITLE} />
       </div>
 
       <div css={inputStyle}>
@@ -70,9 +75,7 @@ export default function BookInfoFormPage() {
             },
           })}
         />
-        {errors[FIELD_NAME.TOTAL_PAGE] && (
-          <p>{errors[FIELD_NAME.TOTAL_PAGE]?.message}</p>
-        )}
+        <ErrorMessage name={FIELD_NAME.TOTAL_PAGE} />
       </div>
 
       <div css={inputStyle}>
@@ -84,9 +87,7 @@ export default function BookInfoFormPage() {
             required: "도서 출판일을 입력해주세요.",
           })}
         />
-        {errors[FIELD_NAME.PUBLICATION_DATE] && (
-          <p>{errors[FIELD_NAME.PUBLICATION_DATE]?.message}</p>
-        )}
+        <ErrorMessage name={FIELD_NAME.PUBLICATION_DATE} />
       </div>
 
       <div css={inputStyle}>
@@ -103,9 +104,7 @@ export default function BookInfoFormPage() {
             {status}
           </label>
         ))}
-        {errors[FIELD_NAME.READING_STATUS] && (
-          <p>{errors[FIELD_NAME.READING_STATUS]?.message}</p>
-        )}
+        <ErrorMessage name={FIELD_NAME.READING_STATUS} />
       </div>
 
       {needReadingStartDate && (
@@ -132,9 +131,7 @@ export default function BookInfoFormPage() {
               },
             })}
           />
-          {errors[FIELD_NAME.READING_START_DATE] && (
-            <p>{errors[FIELD_NAME.READING_START_DATE]?.message}</p>
-          )}
+          <ErrorMessage name={FIELD_NAME.READING_START_DATE} />
         </div>
       )}
 
@@ -167,9 +164,7 @@ export default function BookInfoFormPage() {
               },
             })}
           />
-          {errors[FIELD_NAME.READING_END_DATE] && (
-            <p>{errors[FIELD_NAME.READING_END_DATE]?.message}</p>
-          )}
+          <ErrorMessage name={FIELD_NAME.READING_END_DATE} />
         </div>
       )}
 
