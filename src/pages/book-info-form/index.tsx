@@ -53,23 +53,13 @@ export default function BookInfoFormPage() {
 
       <div css={inputStyle}>
         <label>페이지 수</label>
-        <input
-          type="number"
-          {...register(FIELD_NAME.TOTAL_PAGE, {
-            valueAsNumber: true,
-          })}
-        />
+        <input type="number" {...register(FIELD_NAME.TOTAL_PAGE)} />
         <ErrorMessage name={FIELD_NAME.TOTAL_PAGE} />
       </div>
 
       <div css={inputStyle}>
         <label>도서 출판일</label>
-        <input
-          type="date"
-          {...register(FIELD_NAME.PUBLICATION_DATE, {
-            valueAsDate: true,
-          })}
-        />
+        <input type="date" {...register(FIELD_NAME.PUBLICATION_DATE)} />
         <ErrorMessage name={FIELD_NAME.PUBLICATION_DATE} />
       </div>
 
@@ -91,12 +81,7 @@ export default function BookInfoFormPage() {
       {needReadingStartDate && (
         <div css={inputStyle}>
           <label>독서 시작일</label>
-          <input
-            type="date"
-            {...register(FIELD_NAME.READING_START_DATE, {
-              valueAsDate: true,
-            })}
-          />
+          <input type="date" {...register(FIELD_NAME.READING_START_DATE)} />
           <ErrorMessage name={FIELD_NAME.READING_START_DATE} />
         </div>
       )}
@@ -104,12 +89,7 @@ export default function BookInfoFormPage() {
       {needReadingEndDate && (
         <div css={inputStyle}>
           <label>독서 종료일</label>
-          <input
-            type="date"
-            {...register(FIELD_NAME.READING_END_DATE, {
-              valueAsDate: true,
-            })}
-          />
+          <input type="date" {...register(FIELD_NAME.READING_END_DATE)} />
           <ErrorMessage name={FIELD_NAME.READING_END_DATE} />
         </div>
       )}
