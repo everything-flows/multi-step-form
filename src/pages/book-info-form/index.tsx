@@ -14,13 +14,6 @@ const inputStyle = css`
   flex-direction: column;
 `;
 
-const isValidDateResponse = (date?: Date): date is Date => {
-  if (!date || !(date instanceof Date) || isNaN(date.valueOf())) {
-    return false;
-  }
-  return true;
-};
-
 function ErrorMessage({ name }: { name: keyof Form }) {
   const {
     formState: { errors },
@@ -54,11 +47,7 @@ export default function BookInfoFormPage() {
     <form onSubmit={onNext} css={formStyle}>
       <div css={inputStyle}>
         <label>도서 제목</label>
-        <input
-          {...register(FIELD_NAME.BOOK_TITLE, {
-            required: "도서 제목을 입력해주세요.",
-          })}
-        />
+        <input {...register(FIELD_NAME.BOOK_TITLE)} />
         <ErrorMessage name={FIELD_NAME.BOOK_TITLE} />
       </div>
 
@@ -68,11 +57,6 @@ export default function BookInfoFormPage() {
           type="number"
           {...register(FIELD_NAME.TOTAL_PAGE, {
             valueAsNumber: true,
-            required: "페이지 수를 입력해주세요.",
-            min: {
-              value: 1,
-              message: "책 페이지는 1페이지 이상으로 입력해주세요.",
-            },
           })}
         />
         <ErrorMessage name={FIELD_NAME.TOTAL_PAGE} />
@@ -84,7 +68,6 @@ export default function BookInfoFormPage() {
           type="date"
           {...register(FIELD_NAME.PUBLICATION_DATE, {
             valueAsDate: true,
-            required: "도서 출판일을 입력해주세요.",
           })}
         />
         <ErrorMessage name={FIELD_NAME.PUBLICATION_DATE} />
@@ -97,9 +80,7 @@ export default function BookInfoFormPage() {
             <input
               type="radio"
               value={status}
-              {...register(FIELD_NAME.READING_STATUS, {
-                required: "독서 상태를 입력해주세요.",
-              })}
+              {...register(FIELD_NAME.READING_STATUS)}
             />
             {status}
           </label>
@@ -114,21 +95,6 @@ export default function BookInfoFormPage() {
             type="date"
             {...register(FIELD_NAME.READING_START_DATE, {
               valueAsDate: true,
-              validate: (value) => {
-                if (!isValidDateResponse(value)) {
-                  return "독서 시작일을 입력해주세요.";
-                }
-
-                const publicationDate = formData[FIELD_NAME.PUBLICATION_DATE];
-                if (
-                  !isValidDateResponse(publicationDate) ||
-                  publicationDate > value
-                ) {
-                  return "독서 시작일은 도서 출판일 이후로 입력해주세요.";
-                }
-
-                return true;
-              },
             })}
           />
           <ErrorMessage name={FIELD_NAME.READING_START_DATE} />
@@ -142,26 +108,6 @@ export default function BookInfoFormPage() {
             type="date"
             {...register(FIELD_NAME.READING_END_DATE, {
               valueAsDate: true,
-              validate: (value) => {
-                if (!isValidDateResponse(value)) {
-                  return "독서 종료일을 입력해주세요.";
-                }
-
-                const publicationDate = formData[FIELD_NAME.PUBLICATION_DATE];
-                if (
-                  !isValidDateResponse(publicationDate) ||
-                  publicationDate > value
-                ) {
-                  return "독서 종료일은 도서 출판일 이후로 입력해주세요.";
-                }
-
-                const startDate = formData[FIELD_NAME.READING_START_DATE];
-                if (!isValidDateResponse(startDate) || startDate > value) {
-                  return "독서 종료일은 독서 시작일 이후로 입력해주세요.";
-                }
-
-                return true;
-              },
             })}
           />
           <ErrorMessage name={FIELD_NAME.READING_END_DATE} />
