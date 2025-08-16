@@ -5,7 +5,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/step1");
+    router.replace("/book-info-form");
   }, [router]);
 
   return null;

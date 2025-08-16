@@ -14,7 +14,19 @@ const inputStyle = css`
   flex-direction: column;
 `;
 
-export default function Step1Page() {
+function ErrorMessage({ name }: { name: keyof Form }) {
+  const {
+    formState: { errors },
+  } = useFormContext<Form>();
+
+  if (errors[name] == null || errors[name].message == null) {
+    return null;
+  }
+
+  return <p>{errors[name].message}</p>;
+}
+
+export default function BookInfoFormPage() {
   // const router = useRouter();
   const { watch, register, handleSubmit } = useFormContext<Form>();
 
@@ -36,22 +48,19 @@ export default function Step1Page() {
       <div css={inputStyle}>
         <label>도서 제목</label>
         <input {...register(FIELD_NAME.BOOK_TITLE)} />
+        <ErrorMessage name={FIELD_NAME.BOOK_TITLE} />
       </div>
 
       <div css={inputStyle}>
         <label>페이지 수</label>
-        <input
-          type="number"
-          {...(register(FIELD_NAME.TOTAL_PAGE), { valueAsNumber: true })}
-        />
+        <input type="number" {...register(FIELD_NAME.TOTAL_PAGE)} />
+        <ErrorMessage name={FIELD_NAME.TOTAL_PAGE} />
       </div>
 
       <div css={inputStyle}>
         <label>도서 출판일</label>
-        <input
-          type="date"
-          {...register(FIELD_NAME.PUBLICATION_DATE, { valueAsDate: true })}
-        />
+        <input type="date" {...register(FIELD_NAME.PUBLICATION_DATE)} />
+        <ErrorMessage name={FIELD_NAME.PUBLICATION_DATE} />
       </div>
 
       <div css={inputStyle}>
@@ -66,25 +75,22 @@ export default function Step1Page() {
             {status}
           </label>
         ))}
+        <ErrorMessage name={FIELD_NAME.READING_STATUS} />
       </div>
 
       {needReadingStartDate && (
         <div css={inputStyle}>
           <label>독서 시작일</label>
-          <input
-            type="date"
-            {...register(FIELD_NAME.READING_START_DATE, { valueAsDate: true })}
-          />
+          <input type="date" {...register(FIELD_NAME.READING_START_DATE)} />
+          <ErrorMessage name={FIELD_NAME.READING_START_DATE} />
         </div>
       )}
 
       {needReadingEndDate && (
         <div css={inputStyle}>
           <label>독서 종료일</label>
-          <input
-            type="date"
-            {...register(FIELD_NAME.READING_END_DATE, { valueAsDate: true })}
-          />
+          <input type="date" {...register(FIELD_NAME.READING_END_DATE)} />
+          <ErrorMessage name={FIELD_NAME.READING_END_DATE} />
         </div>
       )}
 
